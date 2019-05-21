@@ -11,27 +11,45 @@ program animales {
 	var vaca = new Vaca()
 	var gallina = new Gallina()
 	var animalActual
-	
+	animalActual=vaca
+	game.addVisual(animalActual)
 	
 	//configuraciones de teclado
-	keyboard.v().onPressDo{
-			game.removeVisual(gallina)
-			animalActual=vaca
-			game.addVisual(animalActual)
-	}
-	keyboard.g().onPressDo{
-			game.removeVisual(vaca)
+	keyboard.num1().onPressDo{
+		if(animalActual==vaca){
 			animalActual=gallina
-			game.addVisual(animalActual)
-		
+			game.removeVisual(vaca)
+			game.addVisual(gallina)
+		}
+		else{
+			animalActual=vaca
+			game.removeVisual(gallina)
+			game.addVisual(vaca)
+		}
 	}
 	keyboard.c().onPressDo{animalActual.comer(12)}
 	keyboard.b().onPressDo{animalActual.beber()}
 	keyboard.p().onPressDo{game.say(animalActual,animalActual.peso().toString())}
 	keyboard.s().onPressDo{
-		if(animalActual.tieneSed()){game.say(animalActual,"Tengo Sed")}
-		else{game.say(animalActual,"No tengo Sed")}
+		if(animalActual.tieneSed()){game.say(animalActual,"Tengo sed")}
+		else{game.say(animalActual,"No tengo sed")}
 	}
+	keyboard.h().onPressDo{
+		if(animalActual.tieneHambre()){game.say(animalActual,"Tengo hambre")}
+		else{game.say(animalActual,"No tengo hambre")}}
+	
+	
+	
+	
+	
+	//Mover
+	keyboard.up().onPressDo{animalActual.caminar();animalActual.arriba()}
+	keyboard.down().onPressDo{animalActual.caminar();animalActual.abajo()}
+	keyboard.left().onPressDo{animalActual.caminar();animalActual.izquierda()}
+	keyboard.right().onPressDo{animalActual.caminar();animalActual.derecha()}
+	
+	
+	
 	//arrancamos el juego
 	 game.start()
 	 
